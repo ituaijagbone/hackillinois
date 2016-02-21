@@ -18,6 +18,7 @@
 		6E22A1AB1C79426B00710A56 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1AA1C79426B00710A56 /* Machine.swift */; };
 		6E22A1AD1C79504F00710A56 /* MachineServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */; };
 		6E22A1CE1C79E0E400710A56 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1CD1C79E0E400710A56 /* Bill.swift */; };
+		6E22A1D21C79E57400710A56 /* CapitalOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1D11C79E57400710A56 /* CapitalOneViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		6E22A1AA1C79426B00710A56 /* Machine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
 		6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineServiceProvider.swift; sourceTree = "<group>"; };
 		6E22A1CD1C79E0E400710A56 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
+		6E22A1D11C79E57400710A56 /* CapitalOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CapitalOneViewController.swift; sourceTree = "<group>"; };
 		7B476D7BA395612FBB7D4940 /* Pods-HackIllinois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackIllinois.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackIllinois/Pods-HackIllinois.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				6E22A18C1C78BDE800710A56 /* MainViewController.swift */,
+				6E22A1D11C79E57400710A56 /* CapitalOneViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E22A1D21C79E57400710A56 /* CapitalOneViewController.swift in Sources */,
 				6E22A1A61C793DF800710A56 /* UIViewExtension.swift in Sources */,
 				6E22A1A91C79401000710A56 /* MachineMarker.swift in Sources */,
 				6E22A1AD1C79504F00710A56 /* MachineServiceProvider.swift in Sources */,

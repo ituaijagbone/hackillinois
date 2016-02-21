@@ -55,7 +55,21 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func makeRequest(sender: AnyObject) {
+//        if !machineType.isEmpty && from != nil {
+//            performSegueWithIdentifier("payBillIdentifier", sender: sender)
+//        } else {
+//            showPrompt("Can't make drop off request")
+//        }
+        performSegueWithIdentifier("payBillIdentifier", sender: sender)
+    }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "payBillIdentifier" {
+            let captialOneVC = segue.destinationViewController as! CapitalOneViewController
+            captialOneVC.price = Float(costLabel.text!)
+            captialOneVC.eta = etaLabel.text!
+            captialOneVC.machineName = machineType
+        }
     }
     
     func reverseGeocodeCoordinate(coordinate: CLLocationCoordinate2D) {
@@ -106,6 +120,16 @@ class MainViewController: UIViewController {
             let cost:Float = Float(googleDirections.distance)! * 0.2
             self.costLabel.text = "$\(cost)"
         }
+    }
+    
+    func showPrompt(message: String) {
+        let actionAlert = UIAlertController(title: "Alert", message: message, preferredStyle: .Alert)
+        let dismissHandler = {
+            (action: UIAlertAction!) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        actionAlert.addAction(UIAlertAction(title: "OK", style: .Default, handler: dismissHandler))
+        presentViewController(actionAlert, animated: true, completion: nil)
     }
 
 }
