@@ -25,7 +25,9 @@ class MainViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     let serviceProvider = MachineServiceProvider()
-    let machineTypes = [String]()
+    let machineTypes = ["Car", "Truck"]
+    var machineType = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let searchGesture = UITapGestureRecognizer(target: self, action: "openMachineDropDown")
@@ -84,6 +86,8 @@ class MainViewController: UIViewController {
     
     func calculateETA(coordinate1: CLLocationCoordinate2D, coordinate2: CLLocationCoordinate2D) {
         serviceProvider.getDirectionWithDistance(coordinate1, to: coordinate2) { googleDirections in
+            self.etaLabel.unlock()
+            self.costLabel.unlock()
             self.etaLabel.text = googleDirections.duration
             let cost:Float = Float(googleDirections.distance)! * 0.2
             self.costLabel.text = "$\(cost)"
@@ -107,8 +111,8 @@ extension MainViewController:CLLocationManagerDelegate {
         if let location = locations.first {
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             locationManager.stopUpdatingLocation()
-            if !machineSearchLabel.text!.isEmpty {
-                fetchMachinesNearBy(location.coordinate, machineType: machineSearchLabel.text!)
+            if !machineType.isEmpty {
+                fetchMachinesNearBy(location.coordinate, machineType: machineType)
             }
         }
     }
@@ -125,6 +129,8 @@ extension MainViewController: GMSMapViewDelegate {
     
     func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
         let machineMaker = marker as! MachineMarker
+        etaLabel.lock()
+        costLabel.lock()
         calculateETA(machineMaker.machine.coordinate, coordinate2: mapView.camera.target)
         return nil
     }
@@ -136,7 +142,15 @@ extension MainViewController: GMSMapViewDelegate {
 }
 
 extension MainViewController:CZPickerViewDelegate {
+    func czpickerView(pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
+        machineType = machineTypes[row]
+        fetchMachinesNearBy(self.mapView.camera.target, machineType: machineType)
+        
+    }
     
+    func czpickerViewDidClickCancelButton(pickerView: CZPickerView!) {
+//        machineType = ""
+    }
 }
 
 extension MainViewController:CZPickerViewDataSource {
@@ -145,12 +159,7 @@ extension MainViewController:CZPickerViewDataSource {
     }
     
     func czpickerView(pickerView: CZPickerView!, titleForRow row: Int) -> String! {
-        return "option \(row)";
-    }
-    
-    func czpickerView(pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
-        //fetchMachinesNearBy(self.mapView.camera.target, machineType: machineTypes[row])
-        print(machineTypes[row])
+        return machineTypes[row];
     }
 }
 
