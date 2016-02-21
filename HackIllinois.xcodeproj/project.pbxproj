@@ -17,6 +17,7 @@
 		6E22A1A91C79401000710A56 /* MachineMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1A81C79401000710A56 /* MachineMarker.swift */; };
 		6E22A1AB1C79426B00710A56 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1AA1C79426B00710A56 /* Machine.swift */; };
 		6E22A1AD1C79504F00710A56 /* MachineServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */; };
+		6E22A1CE1C79E0E400710A56 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E22A1CD1C79E0E400710A56 /* Bill.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,9 +32,10 @@
 		6E22A1961C78BDE800710A56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E22A19D1C78F6E700710A56 /* HackIllinois-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HackIllinois-Bridging-Header.h"; sourceTree = "<group>"; };
 		6E22A1A51C793DF800710A56 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		6E22A1A81C79401000710A56 /* MachineMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MachineMarker.swift; path = ../MachineMarker.swift; sourceTree = "<group>"; };
-		6E22A1AA1C79426B00710A56 /* Machine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Machine.swift; path = ../Machine.swift; sourceTree = "<group>"; };
-		6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MachineServiceProvider.swift; path = ../MachineServiceProvider.swift; sourceTree = "<group>"; };
+		6E22A1A81C79401000710A56 /* MachineMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineMarker.swift; sourceTree = "<group>"; };
+		6E22A1AA1C79426B00710A56 /* Machine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
+		6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineServiceProvider.swift; sourceTree = "<group>"; };
+		6E22A1CD1C79E0E400710A56 /* Bill.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		7B476D7BA395612FBB7D4940 /* Pods-HackIllinois.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HackIllinois.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HackIllinois/Pods-HackIllinois.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,9 +73,6 @@
 			isa = PBXGroup;
 			children = (
 				6E22A1A71C793FF000710A56 /* Models */,
-				6E22A1A81C79401000710A56 /* MachineMarker.swift */,
-				6E22A1AA1C79426B00710A56 /* Machine.swift */,
-				6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */,
 				6E22A1A41C793DD800710A56 /* Views */,
 				6E22A18A1C78BDE800710A56 /* AppDelegate.swift */,
 				6E22A19C1C78F64F00710A56 /* Controllers */,
@@ -106,6 +105,10 @@
 		6E22A1A71C793FF000710A56 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6E22A1A81C79401000710A56 /* MachineMarker.swift */,
+				6E22A1AA1C79426B00710A56 /* Machine.swift */,
+				6E22A1AC1C79504F00710A56 /* MachineServiceProvider.swift */,
+				6E22A1CD1C79E0E400710A56 /* Bill.swift */,
 			);
 			name = Models;
 			path = ..;
@@ -163,6 +166,7 @@
 				TargetAttributes = {
 					6E22A1861C78BDE800710A56 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = YM72WVJHNL;
 					};
 				};
 			};
@@ -254,6 +258,7 @@
 				6E22A1A91C79401000710A56 /* MachineMarker.swift in Sources */,
 				6E22A1AD1C79504F00710A56 /* MachineServiceProvider.swift in Sources */,
 				6E22A1AB1C79426B00710A56 /* Machine.swift in Sources */,
+				6E22A1CE1C79E0E400710A56 /* Bill.swift in Sources */,
 				6E22A18D1C78BDE800710A56 /* MainViewController.swift in Sources */,
 				6E22A18B1C78BDE800710A56 /* AppDelegate.swift in Sources */,
 			);
@@ -370,6 +375,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HackIllinois/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ituaijagbone.HackIllinois;
@@ -385,6 +391,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = HackIllinois/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ituaijagbone.HackIllinois;

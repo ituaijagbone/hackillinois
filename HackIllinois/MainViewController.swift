@@ -25,8 +25,10 @@ class MainViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     let serviceProvider = MachineServiceProvider()
-    let machineTypes = ["Car", "Truck"]
+    let machineTypes = ["Cane Harvester", "Combine", "Cotton Picker", "Cotton Stripper", "Forage Harvester", "Other", "Pickup Truck", "Sprayer", "Tractor", "Utility Vechicle", "Windrower"]
     var machineType = ""
+    var isMarkerSelected = false
+    var from:CLLocationCoordinate2D!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +66,13 @@ class MainViewController: UIViewController {
             if let address = response?.firstResult() {
                 let lines = address.lines as! [String]
                 self.dropoffLabel.text = lines.joinWithSeparator("\n")
-                let labelHeight:CGFloat = 50.0 + 50.0 + 40.0 + 20.0
+                var labelHeight:CGFloat = 50.0 + 50.0 + 40.0 + 20.0
                 self.mapView.padding = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: labelHeight, right: 0)
+                if !self.machineType.isEmpty {
+                    self.fetchMachinesNearBy(self.mapView.camera.target, machineType: self.machineType)
+                }
                 UIView.animateWithDuration(0.25) {
+                    labelHeight = labelHeight - 20 - 40
                     self.dropoffMarkerContraint.constant = ((labelHeight - self.topLayoutGuide.length) * 0.5)
                     self.view.layoutIfNeeded()
                 }
@@ -80,6 +86,14 @@ class MainViewController: UIViewController {
             for machine: Machine in machines {
                 let marker = MachineMarker(machine: machine)
                 marker.map = self.mapView
+            }
+            
+            if self.isMarkerSelected {
+                if self.from != nil {
+                    self.etaLabel.lock()
+                    self.costLabel.lock()
+                    self.calculateETA(self.from, coordinate2: self.mapView.camera.target)
+                }
             }
         }
     }
@@ -111,9 +125,7 @@ extension MainViewController:CLLocationManagerDelegate {
         if let location = locations.first {
             mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
             locationManager.stopUpdatingLocation()
-            if !machineType.isEmpty {
-                fetchMachinesNearBy(location.coordinate, machineType: machineType)
-            }
+            
         }
     }
 }
@@ -131,12 +143,15 @@ extension MainViewController: GMSMapViewDelegate {
         let machineMaker = marker as! MachineMarker
         etaLabel.lock()
         costLabel.lock()
+        from = machineMaker.machine.coordinate
         calculateETA(machineMaker.machine.coordinate, coordinate2: mapView.camera.target)
+        isMarkerSelected = true
         return nil
     }
     
     func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
         mapView.selectedMarker = nil
+        isMarkerSelected = false
         return false
     }
 }
@@ -144,6 +159,7 @@ extension MainViewController: GMSMapViewDelegate {
 extension MainViewController:CZPickerViewDelegate {
     func czpickerView(pickerView: CZPickerView!, didConfirmWithItemAtRow row: Int){
         machineType = machineTypes[row]
+        self.machineSearchLabel.text = machineType
         fetchMachinesNearBy(self.mapView.camera.target, machineType: machineType)
         
     }

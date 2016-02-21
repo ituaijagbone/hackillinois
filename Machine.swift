@@ -15,7 +15,6 @@ class Machine {
     let name: String
     var coordinate: CLLocationCoordinate2D
     let machineType: String
-    let hoursOfOperation: String
     
     init(dictionary:[String : AnyObject]) {
         let json = JSON(dictionary)
@@ -24,7 +23,6 @@ class Machine {
         let lat = json["lat"].doubleValue as CLLocationDegrees
         let lng = json["lng"].doubleValue as CLLocationDegrees
         coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lng)
-        hoursOfOperation = json["hoursOfOperation"].stringValue
     }
     
     

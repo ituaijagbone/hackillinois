@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -32,7 +33,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_me" translatesAutoresizingMaskIntoConstraints="NO" id="oiO-Sa-mOk">
-                                <rect key="frame" x="285" y="273" width="30" height="55"/>
+                                <rect key="frame" x="285" y="245" width="30" height="55"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iem-p1-7y3" userLabel="dropoffLabel">
                                 <rect key="frame" x="20" y="440" width="560" height="50"/>
@@ -77,7 +78,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ueh-OT-FXX" userLabel="etaView">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="50"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjy-V3-kSE">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 mins" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjy-V3-kSE">
                                                 <rect key="frame" x="20" y="30" width="240" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -148,34 +149,33 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="oiO-Sa-mOk" secondAttribute="centerX" id="0in-mL-aOK"/>
                             <constraint firstItem="e38-aC-9Ir" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="5ln-IS-lRc"/>
                             <constraint firstItem="Iem-p1-7y3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="6PZ-Xl-XgU"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rHx-3v-p74" secondAttribute="bottom" id="7mU-vC-xT4"/>
                             <constraint firstItem="rHx-3v-p74" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="ABd-ua-W6J"/>
+                            <constraint firstItem="oiO-Sa-mOk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E9T-hl-cjt"/>
                             <constraint firstItem="gtv-O4-f4Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="I8e-bg-Prn"/>
                             <constraint firstAttribute="trailing" secondItem="rHx-3v-p74" secondAttribute="trailing" id="P15-FV-PAa"/>
-                            <constraint firstItem="oiO-Sa-mOk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QDk-dO-SUj"/>
                             <constraint firstItem="rHx-3v-p74" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="V49-4Z-5Bh"/>
                             <constraint firstItem="e38-aC-9Ir" firstAttribute="top" secondItem="gtv-O4-f4Z" secondAttribute="bottom" id="VkA-AK-HDT"/>
+                            <constraint firstAttribute="centerY" secondItem="oiO-Sa-mOk" secondAttribute="bottom" id="Xcw-Z7-sGx"/>
                             <constraint firstItem="TXG-QT-2rf" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="aGH-xe-3Be"/>
                             <constraint firstAttribute="trailing" secondItem="TXG-QT-2rf" secondAttribute="trailing" constant="20" id="b1f-vu-QWW"/>
                             <constraint firstItem="gtv-O4-f4Z" firstAttribute="top" secondItem="Iem-p1-7y3" secondAttribute="bottom" id="g3Z-Op-Ya8"/>
                             <constraint firstItem="TXG-QT-2rf" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="gf8-iA-g1q"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="e38-aC-9Ir" secondAttribute="bottom" constant="20" id="h14-aL-4fd"/>
-                            <constraint firstItem="oiO-Sa-mOk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="q7p-px-1fM"/>
                             <constraint firstAttribute="trailing" secondItem="e38-aC-9Ir" secondAttribute="trailing" constant="20" id="tCL-Kk-q7i"/>
                             <constraint firstAttribute="trailing" secondItem="gtv-O4-f4Z" secondAttribute="trailing" constant="20" id="u3v-9z-gHJ"/>
                             <constraint firstAttribute="trailing" secondItem="Iem-p1-7y3" secondAttribute="trailing" constant="20" id="wRQ-Pc-suz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KpY-1P-L9v">
-                        <barButtonItem key="rightBarButtonItem" image="filter" id="9oF-WU-rdv"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="KpY-1P-L9v"/>
                     <connections>
                         <outlet property="costLabel" destination="SHa-Ex-nM7" id="Lja-QG-oZP"/>
                         <outlet property="dropOffMarker" destination="oiO-Sa-mOk" id="GSM-kJ-Yew"/>
                         <outlet property="dropoffLabel" destination="Iem-p1-7y3" id="6Ov-qA-PAK"/>
-                        <outlet property="dropoffMarkerContraint" destination="q7p-px-1fM" id="YGm-jJ-hEu"/>
+                        <outlet property="dropoffMarkerContraint" destination="Xcw-Z7-sGx" id="pUi-HN-s5h"/>
                         <outlet property="etaCostView" destination="gtv-O4-f4Z" id="Kx7-Ak-d5r"/>
                         <outlet property="etaLabel" destination="fjy-V3-kSE" id="Lgg-VJ-h0W"/>
                         <outlet property="etacostView" destination="gtv-O4-f4Z" id="Q3f-98-Cwf"/>
@@ -208,7 +208,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="filter" width="25" height="25"/>
         <image name="icon_me" width="30" height="55"/>
     </resources>
 </document>

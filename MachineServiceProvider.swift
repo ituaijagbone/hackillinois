@@ -19,12 +19,16 @@ struct GoogleDirections {
 
 class MachineServiceProvider {
     func fetchMachinesNearBy(coordinate: CLLocationCoordinate2D, type: String, completion: (([Machine]) -> Void)) ->() {
-        let urlString = "/lat/\(coordinate.latitude)/lng/\(coordinate.longitude)"
-        Alamofire.request(.GET, urlString).responseJSON { response in
+        let urlString = "http://52.90.109.150:2000/machines"
+        print(urlString)
+        Alamofire.request(.GET, urlString, parameters: ["lat":coordinate.latitude, "lng":coordinate
+            .longitude, "machine_type":type]).responseJSON { response in
             var machineArray = [Machine]()
+            print(response.result.value)
             if let value = response.result.value {
                 let json = JSON(value)
                 if let results = json["results"].arrayObject as? [[String:AnyObject]] {
+                    print(results)
                     for rawMachine in results {
                         let machine = Machine(dictionary: rawMachine)
                         machineArray.append(machine)
@@ -39,16 +43,17 @@ class MachineServiceProvider {
     }
     
     func getDirectionWithDistance(from: CLLocationCoordinate2D, to: CLLocationCoordinate2D, completion: ((GoogleDirections) -> Void)) -> () {
-        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(from.latitude),\(from.longitude)&destination=\(to.latitude),\(to.longitude)&mode=driving&traffic_model=best_guess&departure_time=now&key=AIzaSyBxDTa-M-OZ80RJ92qrnLHlIbNRAVweJi8"
-        Alamofire.request(.GET, urlString).responseJSON { response in
+        let urlString = "http://52.90.109.150:2000/eta"
+        Alamofire.request(.GET, urlString, parameters: ["origin":"\(from.latitude),\(from.longitude)", "destination":"\(to.latitude),\(to.longitude)"]).responseJSON { response in
             var googleDirections = GoogleDirections(duration: "", distance: "")
             if let value = response.result.value {
                 let json = JSON(value)
-                if let duration = json["routes"][0]["legs"][0]["duration"]["text"].string {
-                    googleDirections.duration = duration
-                }
-                if let distance = json["routes"][0]["legs"][0]["distance"]["value"].string {
-                    googleDirections.distance = distance
+                print(json)
+                if let result = json["results"].arrayObject as? [[String:AnyObject]] {
+                    let dict = result[0]
+                    print(dict)
+                    googleDirections.duration = dict["duration"] as! String
+                    googleDirections.distance = String(dict["distance"] as! Int)
                 }
             }
             
