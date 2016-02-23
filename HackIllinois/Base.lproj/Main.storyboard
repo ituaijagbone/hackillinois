@@ -144,9 +144,6 @@
                                 <state key="normal" title="Request"/>
                                 <connections>
                                     <action selector="makeRequest:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T4w-iG-VL7"/>
-                                    <segue destination="cyR-0y-kQx" kind="popoverPresentation" identifier="payBillIdentifier" popoverAnchorView="e38-aC-9Ir" id="4qh-1K-Mqy">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
@@ -173,7 +170,13 @@
                             <constraint firstAttribute="trailing" secondItem="Iem-p1-7y3" secondAttribute="trailing" constant="20" id="wRQ-Pc-suz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KpY-1P-L9v"/>
+                    <navigationItem key="navigationItem" id="KpY-1P-L9v">
+                        <barButtonItem key="rightBarButtonItem" title="clear" id="DNG-2K-v6u">
+                            <connections>
+                                <action selector="clearAndDisappear:" destination="BYZ-38-t0r" id="mW2-AS-Au9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="costLabel" destination="SHa-Ex-nM7" id="Lja-QG-oZP"/>
                         <outlet property="dropOffMarker" destination="oiO-Sa-mOk" id="GSM-kJ-Yew"/>
@@ -184,7 +187,9 @@
                         <outlet property="etacostView" destination="gtv-O4-f4Z" id="Q3f-98-Cwf"/>
                         <outlet property="machineSearchLabel" destination="TXG-QT-2rf" id="ZHq-sw-qcw"/>
                         <outlet property="mapView" destination="rHx-3v-p74" id="3SN-Qh-uUM"/>
+                        <outlet property="navigationItem1" destination="KpY-1P-L9v" id="uOk-tr-5Qf"/>
                         <outlet property="requestButton" destination="e38-aC-9Ir" id="Ezb-ga-bsT"/>
+                        <segue destination="cyR-0y-kQx" kind="presentation" identifier="payBillIdentifier" id="1D0-mr-lXo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -256,7 +261,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="270" id="DR9-Zh-sPZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="127"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="47"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>

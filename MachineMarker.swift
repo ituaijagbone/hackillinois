@@ -14,7 +14,7 @@ class MachineMarker: GMSMarker {
         self.machine = machine
         super.init()
         position = machine.coordinate
-        icon = UIImage(named: machine.machineType+"_pin")
+        icon = UIImage(named: "trackor")
         groundAnchor = CGPoint(x: 0.5, y: 1)
         appearAnimation = kGMSMarkerAnimationPop
     }

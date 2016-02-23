@@ -20,21 +20,64 @@ class CaptitalOneServiceProvider {
     let creditCard = "56c66be6a73e492741507cfd"
     func payBill(amount: Float, reason: String, completion:((Bool) -> Void)) -> () {
         let dateFormatter = NSDateFormatter()
-        let currentDate = NSDate()
-        dateFormatter.dateFormat = "yyyy-02-dd"
-
-        let urlString = "http://api.reimaginebanking.com/accounts/\(creditCard)"
-        Alamofire.request(.POST, urlString, parameters: ["key":key, "status": "pending",
-            "payee": "Agrimeant", "nickname": reason, "payment_date": dateFormatter.stringFromDate(currentDate), "recurring_date": 1, "payment_amount": amount]).responseJSON { response in
+        _ = NSDate()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        
+        let urlString = "http://api.reimaginebanking.com/accounts/56c66be6a73e492741507cfd/purchases?key=d551de08fcc5931bf5fb02d27b3f9ec3"
+        
+        let params:Dictionary<String, AnyObject> = [
+            "merchant_id": "string",
+            "medium": "balance",
+            "purchase_date": "2016-02-21",
+            "amount": 0,
+            "status": "pending",
+            "description": "string"
+        ]
+        
+        let myUrl = NSURL(string: urlString);
+        let request = NSMutableURLRequest(URL:myUrl!);
+        request.HTTPMethod = "POST";
+        // Compose a query string
+        
+        request.HTTPBody = try! NSJSONSerialization.dataWithJSONObject(params, options: .PrettyPrinted);
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request) {  data, response, error in
+            if error != nil
+            {
+                print("error=\(error)")
+                dispatch_async(dispatch_get_main_queue()) {
+                    completion(false)
+                    return
+                }
+            }
             
-            var status = false
-            let json = JSON(response.result.value!)
-            if Int(json["code"].stringValue) == 201 {
-                status = true
+            // You can print out response object
+            print("response = \(response)")
+            
+            // Print out response body
+            let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
+            print("responseString = \(responseString)")
+            
+            //Let’s convert response sent from a server side script to a NSDictionary object:
+            
+            let myJSON = try! NSJSONSerialization.JSONObjectWithData(data!, options: .MutableLeaves) as? NSDictionary
+            if let parseJSON = myJSON {
+                // Now we can access value of First Name by its key
+                let firstNameValue = parseJSON["code"] as? Int
+                print("code: \(firstNameValue)")
+                if firstNameValue! == 201 {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(true)
+                        
+                    }
+                } else {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        completion(false)
+                    }
+                }
             }
-            dispatch_async(dispatch_get_main_queue()) {
-                completion(status)
-            }
-         }
+        }
+        
+        task.resume()
     }
 }

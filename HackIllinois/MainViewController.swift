@@ -23,6 +23,9 @@ class MainViewController: UIViewController {
     @IBOutlet var requestButton: UIButton!
     @IBOutlet var dropoffMarkerContraint: NSLayoutConstraint!
     
+    @IBOutlet var navigationItem1: UINavigationItem!
+    
+    var cost:Float = 0
     let locationManager = CLLocationManager()
     let serviceProvider = MachineServiceProvider()
     let machineTypes = ["Cane Harvester", "Combine", "Cotton Picker", "Cotton Stripper", "Forage Harvester", "Other", "Pickup Truck", "Sprayer", "Tractor", "Utility Vechicle", "Windrower"]
@@ -39,6 +42,9 @@ class MainViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
+        
+        navigationItem1.rightBarButtonItems?.removeAtIndex(0)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,24 +57,43 @@ class MainViewController: UIViewController {
         picker.delegate = self
         picker.dataSource = self
         picker.needFooterView = true
+        picker.headerBackgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 1.0)
+        picker.confirmButtonBackgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 1.0)
         picker.show()
     }
     
+    @IBAction func clearAndDisappear(sender: AnyObject) {
+        clear()
+        navigationItem1.rightBarButtonItems?.removeAtIndex(0)
+    }
+    
+    func clear() {
+        machineType = ""
+        isMarkerSelected = false
+        from = nil
+        
+        machineSearchLabel.text = "Select Machine Type"
+        dropoffLabel.text = ""
+        etaLabel.text = "0 min"
+        costLabel.text = "$0"
+    }
+    
     @IBAction func makeRequest(sender: AnyObject) {
-//        if !machineType.isEmpty && from != nil {
-//            performSegueWithIdentifier("payBillIdentifier", sender: sender)
-//        } else {
-//            showPrompt("Can't make drop off request")
-//        }
-        performSegueWithIdentifier("payBillIdentifier", sender: sender)
+        if !machineType.isEmpty && from != nil {
+            performSegueWithIdentifier("payBillIdentifier", sender: sender)
+        } else {
+            showPrompt("Can't make drop off request")
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "payBillIdentifier" {
             let captialOneVC = segue.destinationViewController as! CapitalOneViewController
-            captialOneVC.price = Float(costLabel.text!)
+            captialOneVC.price = cost
             captialOneVC.eta = etaLabel.text!
             captialOneVC.machineName = machineType
+            
+            clear()
         }
     }
     
@@ -109,7 +134,12 @@ class MainViewController: UIViewController {
                     self.calculateETA(self.from, coordinate2: self.mapView.camera.target)
                 }
             }
-        }
+            
+            if self.navigationItem1.rightBarButtonItems?.count < 1 {
+                let item = UIBarButtonItem(title: "Clear", style: .Plain, target: self, action: "clearAndDisappear:")
+                self.navigationItem1.rightBarButtonItems?.append(item)
+            }
+         }
     }
     
     func calculateETA(coordinate1: CLLocationCoordinate2D, coordinate2: CLLocationCoordinate2D) {
@@ -119,6 +149,8 @@ class MainViewController: UIViewController {
             self.etaLabel.text = googleDirections.duration
             let cost:Float = Float(googleDirections.distance)! * 0.2
             self.costLabel.text = "$\(cost)"
+            self.cost = cost
+            self.mapView.selectedMarker = nil
         }
     }
     
@@ -161,22 +193,38 @@ extension MainViewController: GMSMapViewDelegate {
     
     func mapView(mapView: GMSMapView!, willMove gesture: Bool) {
         self.dropoffLabel.lock()
+        if (gesture) {
+            dropOffMarker.fadeIn(0.25)
+            mapView.selectedMarker = nil
+        }
     }
     
-    func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
+//    func mapView(mapView: GMSMapView!, markerInfoContents marker: GMSMarker!) -> UIView! {
+//        let machineMaker = marker as! MachineMarker
+//        etaLabel.lock()
+//        costLabel.lock()
+//        from = machineMaker.machine.coordinate
+//        calculateETA(machineMaker.machine.coordinate, coordinate2: mapView.camera.target)
+//        isMarkerSelected = true
+//        return nil
+//    }
+    
+    func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
+        dropOffMarker.fadeIn(0.25)
+        mapView.selectedMarker = nil   
+        isMarkerSelected = false
+        return false
+    }
+    
+    func mapView(mapView: GMSMapView!, didTapMarker marker: GMSMarker!) -> Bool {
+//        dropOffMarker.fadeOut(0.25)
         let machineMaker = marker as! MachineMarker
         etaLabel.lock()
         costLabel.lock()
         from = machineMaker.machine.coordinate
         calculateETA(machineMaker.machine.coordinate, coordinate2: mapView.camera.target)
         isMarkerSelected = true
-        return nil
-    }
-    
-    func didTapMyLocationButtonForMapView(mapView: GMSMapView!) -> Bool {
-        mapView.selectedMarker = nil
-        isMarkerSelected = false
-        return false
+        return true
     }
 }
 
@@ -185,7 +233,6 @@ extension MainViewController:CZPickerViewDelegate {
         machineType = machineTypes[row]
         self.machineSearchLabel.text = machineType
         fetchMachinesNearBy(self.mapView.camera.target, machineType: machineType)
-        
     }
     
     func czpickerViewDidClickCancelButton(pickerView: CZPickerView!) {

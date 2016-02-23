@@ -19,7 +19,7 @@ class CapitalOneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        costLabel.text = String(price)
+        costLabel.text = "$\(price)"
         machineNameLabel.text = machineName
     }
 
